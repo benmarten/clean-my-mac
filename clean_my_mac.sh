@@ -102,7 +102,7 @@ case "$line" in
 esac
 #Empty Trash if their are any items in the Trash
 if [ "$(ls -A ~/.Trash 2> /dev/null | cut -f1 -d".")" == "" ]; then
-#do nothing
+echo ""
 else
 echo "There are items in your Trash, do you want to empty it now [y/n]?"
 read line
