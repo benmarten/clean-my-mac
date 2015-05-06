@@ -18,4 +18,4 @@ Download the script execute
 ```shell
 sh clean_my_mac.sh
 ```
-![clean-my-mac](Resources/cleanmymac.gif)
+![http://i.imgur.com/L7gzMUK.gifv](http://i.imgur.com/L7gzMUK.gifv)
