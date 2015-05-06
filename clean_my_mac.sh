@@ -1,7 +1,7 @@
 #!/bin/sh
 
-#A free and simple single script to clean and speed up your mac
-#Note that this will reset Notification Center, I'm still working on a fix
+#A free and simple single script to clean and speed up your Mac, built for OS X 10.10
+#Note that this will Reset Notification Center and Notification Center settings, and also may cause lock screen and desktop image to be different - a fix is being prepared.
 
 #calculate used space
 ifs=$(df -H / | egrep '/$' | awk '{print $4}' | cut -d "G" -f 1)
@@ -110,19 +110,19 @@ case "$line" in
     n|N) echo "Skipping Emptying the Trash..."
          sleep 2
         ;;
-    y|Y) echo "Emptying the Trash"
+    y|Y) echo "Emptying the Trash..."
          rm -rf ~/.Trash/*
         ;;
 esac
 fi
-echo "to gain even more space, download and run Monolingual to remove language packs you don't use from http://ingmarstein.github.io/Monolingual/"
+echo "To gain even more free space, download and run Monolingual to remove language packs you don't use from http://ingmarstein.github.io/Monolingual/"
 
 #Calculate used space
 ffs=$(df -H / | egrep '/$' | awk '{print $4}' | cut -d "G" -f 1)
 echo "Total free space after cleanup is "$ffs"GB"
 a="$ifs"
 b="$ffs"
-tot=`echo "$ifs - $ffs" | bc`
+tot=`echo "$ffs - $ifs" | bc`
 if (( $tot >= 1 )); then
 echo "You saved a total of "$tot"GB of space"
 else
