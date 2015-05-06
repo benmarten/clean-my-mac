@@ -14,7 +14,7 @@ The results were fantastic, saving ~4.5 GB on my MacBook Airs and ~7GB on my 201
 Script Usage
 =============
     
-Download the script execute
+Download the script, execute, then enter your password when prompted:
 ```shell
 sh clean_my_mac.sh
 ```
