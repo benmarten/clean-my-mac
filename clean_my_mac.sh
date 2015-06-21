@@ -54,17 +54,17 @@ do
 done
 echo "done cleaning for application caches"
 #Terminal Caches (.asl)
-#echo "If your Terminal is running slow, cleaning out the *.asl log files may help speed it up - would you like to move the files to the Trash [y/n]?"
-#read line
-#case "$line" in
-#    n|N) echo "Skipping Terminal cleaning..."
-#         sleep 2
-#        ;;
-#    y|Y) #sudo mv /private/var/log/asl/*.asl ~/.Trash
-#         sudo rm -rf /private/var/log/asl/*.asl
-#         #sudo rm -i /private/var/log/asl/*.asl
-#        ;;
-#esac
+echo "If your Terminal is running slow, cleaning out the *.asl log files may help speed it up - would you like to move the files to the Trash [y/n]?"
+read line
+case "$line" in
+    n|N) echo "Skipping Terminal cleaning..."
+         sleep 2
+        ;;
+    y|Y) sudo mv /private/var/log/asl/*.asl ~/.Trash
+         #sudo rm -rf /private/var/log/asl/*.asl
+         #sudo rm -i /private/var/log/asl/*.asl
+        ;;
+esac
 #Xcode DerivedData & Archives (if Xcode exists in /Applications directory)
 if [ -d "/Applications/Xcode.app" ]; then
 echo "Do you want to clean Xcode DerivedData, Archives, and iOS Device Logs [y/n]?"
@@ -90,7 +90,9 @@ case "$line" in
     y|Y) rm -rf ~/Library/Containers/com.apple.mail/Data/Library/Mail\ Downloads/*
         ;;
 esac
-#Permissions Repair
+#Permissions Repair (OS X 10.11 gets rid of permission repair)
+ver=`sw_vers -productVersion | cut -d "." -f 2`
+if (( $ver < 11 )); then
 echo "Would you like to Repair your Disk Permissions [y/n]?"
 read line
 case "$line" in
@@ -100,6 +102,9 @@ case "$line" in
     y|Y) sudo diskutil repairPermissions /
         ;;
 esac
+else
+echo ""
+fi
 #Empty Trash if their are any items in the Trash
 if [ "$(ls -A ~/.Trash 2> /dev/null | cut -f1 -d".")" == "" ]; then
 echo ""
