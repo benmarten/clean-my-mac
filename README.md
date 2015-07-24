@@ -15,7 +15,7 @@ Known Bugs
 =============
 Notification Center layout and settings will be reset.
 
-May cause OS X Lock Screen and Desktop wallpapers to not match.
+May cause OS X Lock Screen and Desktop wallpapers not to match.
 
 Script Usage
 =============
