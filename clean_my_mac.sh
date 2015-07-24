@@ -1,7 +1,6 @@
 #!/bin/sh
 
-#A free and simple single script to clean and speed up your Mac, built for OS X 10.10
-#Note that this will Reset Notification Center and Notification Center settings, and also may cause lock screen and desktop image to be different - a fix is being prepared.
+#A free and simple script to clean and speed up your Mac.
 
 #calculate used space
 ifs=$(df -H / | egrep '/$' | awk '{print $4}' | cut -d "G" -f 1)
@@ -11,40 +10,47 @@ echo "Total free space before cleanup is "$ifs"GB"
 #inspace=$(df -h | grep -A1 /dev/disk1 | sed -n 1p | awk '{ print $7 }')
 #ins="${inspace:0:2}.${inspace:2:2}"
 #echo "Total free space before cleanup is "$ins"GB and "$inspace"kb"
+#UNIX maintenance scripts (not fully tested, may be added later)
+#sudo periodic daily weekly monthly
 
-#user cache file
-echo "cleaning user cache file from ~/Library/Caches"
+#User Cache files
+echo “Cleaning user Cache files from ~/Library/Caches"
 rm -rf ~/Library/Caches/*
-echo "done cleaning from ~/Library/Caches"
-#user logs
-echo "cleaning user log file from ~/Library/logs"
+echo “Done cleaning from ~/Library/Caches"
+#User Logs
+echo “Cleaning user log file from ~/Library/logs"
 rm -rf ~/Library/logs/*
-echo "done cleaning from ~/Library/logs"
-#user preference log
-echo "cleaning user preference logs"
+echo “Done cleaning from ~/Library/logs"
+#User Preference Log
+echo “Cleaning user preference logs"
 #rm -rf ~/Library/Preferences/*
-echo "done cleaning from /Library/Preferences"
-#system caches
-echo "cleaning system caches"
+echo “Done cleaning from /Library/Preferences"
+#System Caches
+echo “Cleaning system caches"
 sudo rm -rf /Library/Caches/*
-echo "done cleaning system cache"
-#system logs
-echo "cleaning system logs from /Library/logs"
+echo “Done cleaning system cache"
+#System Logs
+echo “Cleaning System Logs from /Library/logs"
 sudo rm -rf /Library/logs/*
-echo "done cleaning from /Library/logs"
-echo "cleaning system logs from /var/log"
+echo “Done cleaning from /Library/logs"
+echo “Cleaning System Logs from /var/log"
 sudo rm -rf /var/log/*
-echo "done cleaning from /var/log"
-echo "cleaning from /private/var/folders"
+echo “Done cleaning from /var/log"
+echo “Cleaning from /private/var/folders"
 sudo rm -rf /private/var/folders/*
-echo "done cleaning from /private/var/folders"
-#ios photo caches
-echo "cleaning ios photo caches"
+echo “Done cleaning from /private/var/folders"
+#iOS Photo Caches, only run in OS X 10.9.X and older
 var=$(whoami)
+ver=`sw_vers -productVersion | cut -d "." -f 2`
+if (( $ver < 10 )); then
+echo “Cleaning iOS Photo Caches“
 rm -rf /Users/$var/Pictures/iPhoto\ Library/iPod\ Photo\ Cache/*
-echo "done cleaning from /Users/$var/Pictures/iPhoto Library/iPod Photo Cache"
-#application caches and logs
-echo "cleaning application caches and logs"
+echo “Done cleaning from /Users/$var/Pictures/iPhoto Library/iPod Photo Cache"
+else
+echo ""
+fi
+#Application Caches and Logs
+echo “Cleaning Application Caches and Logs"
 for x in $(ls ~/Library/Containers/) 
 do 
     echo "cleaning ~/Libarary/Containers/$x/Data/Library/Caches"
@@ -52,7 +58,7 @@ do
     rm -rf ~/Library/Containers/$x/Data/Library/Logs/*
     echo "done cleaning ~/Library/Containers/$x/Data/Library/Caches"
 done
-echo "done cleaning for application caches"
+echo “Done cleaning Application Caches"
 #Terminal Caches (.asl)
 echo "If your Terminal is running slow, cleaning out the *.asl log files may help speed it up - would you like to move the files to the Trash [y/n]?"
 read line
@@ -90,7 +96,7 @@ case "$line" in
     y|Y) rm -rf ~/Library/Containers/com.apple.mail/Data/Library/Mail\ Downloads/*
         ;;
 esac
-#Permissions Repair (OS X 10.11 gets rid of permission repair)
+#Permissions Repair (OS X 10.11 gets rid of permission repair, therefore not required)
 ver=`sw_vers -productVersion | cut -d "." -f 2`
 if (( $ver < 11 )); then
 echo "Would you like to Repair your Disk Permissions [y/n]?"
