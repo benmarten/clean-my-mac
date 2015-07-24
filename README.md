@@ -14,6 +14,7 @@ The results were fantastic, saving ~4.5 GB on both MacBook Airs and ~7GB on my 2
 Known Bugs
 =============
 Notification Center layout and settings will be reset.
+
 May cause OS X Lock Screen and Desktop wallpapers to not match.
 
 Script Usage
