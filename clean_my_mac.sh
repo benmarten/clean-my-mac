@@ -14,43 +14,43 @@ echo "Total free space before cleanup is "$ifs"GB"
 #sudo periodic daily weekly monthly
 
 #User Cache files
-echo “Cleaning user Cache files from ~/Library/Caches"
+echo "Cleaning user Cache files from ~/Library/Caches"
 rm -rf ~/Library/Caches/*
-echo “Done cleaning from ~/Library/Caches"
+echo "Done cleaning from ~/Library/Caches"
 #User Logs
-echo “Cleaning user log file from ~/Library/logs"
+echo "Cleaning user log file from ~/Library/logs"
 rm -rf ~/Library/logs/*
-echo “Done cleaning from ~/Library/logs"
+echo "Done cleaning from ~/Library/logs"
 #User Preference Log
-echo “Cleaning user preference logs"
+echo "Cleaning user preference logs"
 #rm -rf ~/Library/Preferences/*
-echo “Done cleaning from /Library/Preferences"
+echo "Done cleaning from /Library/Preferences"
 #System Caches
-echo “Cleaning system caches"
+echo "Cleaning system caches"
 sudo rm -rf /Library/Caches/*
-echo “Done cleaning system cache"
+echo "Done cleaning system cache"
 #System Logs
-echo “Cleaning System Logs from /Library/logs"
+echo "Cleaning System Logs from /Library/logs"
 sudo rm -rf /Library/logs/*
-echo “Done cleaning from /Library/logs"
-echo “Cleaning System Logs from /var/log"
+echo "Done cleaning from /Library/logs"
+echo "Cleaning System Logs from /var/log"
 sudo rm -rf /var/log/*
-echo “Done cleaning from /var/log"
-echo “Cleaning from /private/var/folders"
+echo "Done cleaning from /var/log"
+echo "Cleaning from /private/var/folders"
 sudo rm -rf /private/var/folders/*
-echo “Done cleaning from /private/var/folders"
-#iOS Photo Caches, only run in OS X 10.9.X and older
+echo "Done cleaning from /private/var/folders"
+#iOS Photo Caches, only run in OS X Mavericks and older
 var=$(whoami)
 ver=`sw_vers -productVersion | cut -d "." -f 2`
 if (( $ver < 10 )); then
-echo “Cleaning iOS Photo Caches“
+echo "Cleaning iOS Photo Caches"
 rm -rf /Users/$var/Pictures/iPhoto\ Library/iPod\ Photo\ Cache/*
-echo “Done cleaning from /Users/$var/Pictures/iPhoto Library/iPod Photo Cache"
+echo "Done cleaning from /Users/$var/Pictures/iPhoto Library/iPod Photo Cache"
 else
 echo ""
 fi
 #Application Caches and Logs
-echo “Cleaning Application Caches and Logs"
+echo "Cleaning Application Caches and Logs"
 for x in $(ls ~/Library/Containers/) 
 do 
     echo "cleaning ~/Libarary/Containers/$x/Data/Library/Caches"
@@ -58,8 +58,8 @@ do
     rm -rf ~/Library/Containers/$x/Data/Library/Logs/*
     echo "done cleaning ~/Library/Containers/$x/Data/Library/Caches"
 done
-echo “Done cleaning Application Caches"
-#Terminal Caches (.asl)
+echo "Done cleaning Application Caches"
+#Terminal Caches (.asl files)
 echo "If your Terminal is running slow, cleaning out the *.asl log files may help speed it up - would you like to move the files to the Trash [y/n]?"
 read line
 case "$line" in
@@ -82,7 +82,7 @@ case "$line" in
     y|Y) echo "cleaning Xcode DerivedData Archives, and iOS Device Logs"
          rm -rf ~/Library/Developer/Xcode/DerivedData/*
          rm -rf ~/Library/Developer/Xcode/Archives/*
-	 rm -rf ~/Library/Developer/Xcode/iOS\ Device\ Logs/*
+         rm -rf ~/Library/Developer/Xcode/iOS\ Device\ Logs/*
         ;;
 esac
 fi
