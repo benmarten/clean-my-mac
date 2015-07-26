@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #A free and simple script to clean and speed up your Mac.
 
