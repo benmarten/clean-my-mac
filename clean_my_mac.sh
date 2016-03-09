@@ -13,6 +13,10 @@ echo "Total free space before cleanup is "$ifs"GB"
 #UNIX maintenance scripts (not fully tested, may be added later)
 #sudo periodic daily weekly monthly
 
+#Global Temp files
+echo "Cleaning temp files from /tmp"
+sudo rm -rf /tmp/*
+echo "Done cleaning from /tmp"
 #User Cache files
 echo "Cleaning user Cache files from ~/Library/Caches"
 rm -rf ~/Library/Caches/*
@@ -51,8 +55,8 @@ echo ""
 fi
 #Application Caches and Logs
 echo "Cleaning Application Caches and Logs"
-for x in $(ls ~/Library/Containers/) 
-do 
+for x in $(ls ~/Library/Containers/)
+do
     echo "cleaning ~/Libarary/Containers/$x/Data/Library/Caches"
     rm -rf ~/Library/Containers/$x/Data/Library/Caches/*
     rm -rf ~/Library/Containers/$x/Data/Library/Logs/*
@@ -60,42 +64,45 @@ do
 done
 echo "Done cleaning Application Caches"
 #Terminal Caches (.asl files)
-echo "If your Terminal is running slow, cleaning out the *.asl log files may help speed it up - would you like to move the files to the Trash [y/n]?"
-read line
-case "$line" in
-    n|N) echo "Skipping Terminal cleaning..."
-         sleep 2
-        ;;
-    y|Y) sudo mv /private/var/log/asl/*.asl ~/.Trash
+# echo "If your Terminal is running slow, cleaning out the *.asl log files may help speed it up - would you like to move the files to the Trash [y/n]?"
+# read line
+# case "$line" in
+#     n|N) echo "Skipping Terminal cleaning..."
+#          sleep 2
+#         ;;
+#     y|Y)
+     sudo mv /private/var/log/asl/*.asl ~/.Trash
          #sudo rm -rf /private/var/log/asl/*.asl
          #sudo rm -i /private/var/log/asl/*.asl
-        ;;
-esac
+        # ;;
+# esac
 #Xcode DerivedData & Archives (if Xcode exists in /Applications directory)
 if [ -d "/Applications/Xcode.app" ]; then
-echo "Do you want to clean Xcode DerivedData, Archives, and iOS Device Logs [y/n]?"
-read line
-case "$line" in
-    n|N) echo "Skipping Xcode cleaning..."
-         sleep 2
-        ;;
-    y|Y) echo "cleaning Xcode DerivedData Archives, and iOS Device Logs"
-         rm -rf ~/Library/Developer/Xcode/DerivedData/*
-         rm -rf ~/Library/Developer/Xcode/Archives/*
-         rm -rf ~/Library/Developer/Xcode/iOS\ Device\ Logs/*
-        ;;
-esac
+# echo "Do you want to clean Xcode DerivedData, Archives, and iOS Device Logs [y/n]?"
+# read line
+# case "$line" in
+#     n|N) echo "Skipping Xcode cleaning..."
+#          sleep 2
+#         ;;
+#     y|Y)
+    echo "cleaning Xcode DerivedData Archives, and iOS Device Logs"
+        rm -rf ~/Library/Developer/Xcode/DerivedData/*
+        rm -rf ~/Library/Developer/Xcode/Archives/*
+        rm -rf ~/Library/Developer/Xcode/iOS\ Device\ Logs/*
+        # ;;
+# esac
 fi
 #Mail Downloads Attachments
-echo "Would you like to delete downloaded Mail attachments [y/n]?"
-read line
-case "$line" in
-    n|N) echo "Skipping removing downloaded Mail attachments..."
-         sleep 2
-        ;;
-    y|Y) rm -rf ~/Library/Containers/com.apple.mail/Data/Library/Mail\ Downloads/*
-        ;;
-esac
+# echo "Would you like to delete downloaded Mail attachments [y/n]?"
+# read line
+# case "$line" in
+#     n|N) echo "Skipping removing downloaded Mail attachments..."
+#          sleep 2
+#         ;;
+    # y|Y) 
+rm -rf ~/Library/Containers/com.apple.mail/Data/Library/Mail\ Downloads/*
+        # ;;
+# esac
 #Permissions Repair (OS X 10.11 gets rid of permission repair, therefore not required)
 ver=`sw_vers -productVersion | cut -d "." -f 2`
 if (( $ver < 11 )); then
@@ -115,16 +122,17 @@ fi
 if [ "$(ls -A ~/.Trash 2> /dev/null | cut -f1 -d".")" == "" ]; then
 echo ""
 else
-echo "There are items in your Trash, do you want to empty it now [y/n]?"
-read line
-case "$line" in
-    n|N) echo "Skipping Emptying the Trash..."
-         sleep 2
-        ;;
-    y|Y) echo "Emptying the Trash..."
+# echo "There are items in your Trash, do you want to empty it now [y/n]?"
+# read line
+# case "$line" in
+#     n|N) echo "Skipping Emptying the Trash..."
+#          sleep 2
+#         ;;
+    # y|Y) 
+		echo "Emptying the Trash..."
          rm -rf ~/.Trash/*
-        ;;
-esac
+        # ;;
+# esac
 fi
 echo "To gain even more free space, download and run Monolingual to remove language packs you don't use from http://ingmarstein.github.io/Monolingual/"
 
@@ -139,6 +147,8 @@ echo "You saved a total of "$tot"GB of space"
 else
 echo "You saved less than 1GB of space"
 fi
+
+sudo mkdir /private/var/log/apache2/
 
 #Saving for later...
 #fispace=$(df -h | grep -A1 /dev/disk1 | sed -n 1p | awk '{ print $7 }')
