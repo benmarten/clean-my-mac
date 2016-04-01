@@ -24,3 +24,4 @@ echo "Done!"
 # # Temp fix for nvm linking issue
 ln -s ~/.nvm/versions/node/(node -v)/bin/node /usr/local/bin/ 
 ln -s ~/.nvm/versions/node/(node -v)/bin/npm /usr/local/bin/
+
