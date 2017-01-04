@@ -1,6 +1,6 @@
 #!/bin/fish
 
-set NODE_VERSION_REMOTE (nvm version-remote node)
+set NODE_VERSION_REMOTE (nvm version-remote 6)
 set NODE_VERSION (nvm version node)
 
 # echo $NODE_VERSION
@@ -13,7 +13,7 @@ end
 
 echo "Upgrading node $NODE_VERSION -> $NODE_VERSION_REMOTE ..."
 
-nvm install node
+nvm install $NODE_VERSION_REMOTE
 # nvm use node
 nvm alias default $NODE_VERSION_REMOTE
 echo "Reinstalling global modules ..."
