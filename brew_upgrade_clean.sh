@@ -3,7 +3,6 @@
 sudo softwareupdate -i -a;
 
 brew update
-brew cask update
 brew upgrade
 brew cleanup
 brew cask cleanup
